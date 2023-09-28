@@ -4,5 +4,6 @@ export interface ITeams {
 }
 
 export interface ITeamsModel {
-  findAll(): Promise<ITeams[]>
+  findAll(): Promise<ITeams[]>,
+  findById(id: number): Promise<ITeams | null>,
 }

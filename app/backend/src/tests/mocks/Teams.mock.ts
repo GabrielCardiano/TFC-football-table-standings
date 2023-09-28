@@ -13,6 +13,9 @@ const allTeams = [
   },
 ]
 
+const team = { "id": 1, "teamName": "Flamengo" }
+
 export {
   allTeams,
+  team,
 }

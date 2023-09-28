@@ -11,6 +11,12 @@ class TeamsController {
     const { status, data } = await this._teamsController.findAllTeams();
     res.status(httpResponse(status)).json(data);
   }
+
+  public async findTeamById(req: Request, res: Response) {
+    const id = Number(req.params.id);
+    const { status, data } = await this._teamsController.findTeamById(id);
+    res.status(httpResponse(status)).json(data);
+  }
 }
 
 export default TeamsController;
