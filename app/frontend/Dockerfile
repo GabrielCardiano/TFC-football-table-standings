@@ -9,7 +9,7 @@ RUN npm install
 # Copiar o restante dos arquivos da aplicação para o container
 COPY . .
 # Sinalize que aplicação expõe a porta 3000
-EXPOSE 3001
+EXPOSE 3000
 # Configurar os comandos para iniciar a aplicação de acordo com as boas práticas
 ENTRYPOINT [ "npm", "run" ]
 # Dica: Leia a seção Docker e Docker-compose no README para mais informações
