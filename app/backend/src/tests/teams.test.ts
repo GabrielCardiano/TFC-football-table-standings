@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Teste endpoint TEAMS', () => {
+describe('Teste endpoint TEAMS', function () {
 
   beforeEach(function () {
     sinon.restore();
