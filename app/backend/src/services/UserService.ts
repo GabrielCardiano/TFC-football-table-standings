@@ -15,11 +15,13 @@ class UserService extends JWT {
   public async login(email: string, password: string): Promise<ServiceResponse<IToken>> {
     //  Authentication --> check user email
     const user = await this._userModel.findByEmail(email);
-    if (!user) return { status: 'NOT_FOUND', data: { message: 'User not found' } };
+    if (!user) return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
 
     // Authetication --> check password with bcrypt
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) return { status: 'UNAUTHORIZED', data: { message: 'Invalid password' } };
+    if (!isPasswordValid) {
+      return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
+    }
 
     // Authorization --> generate token for authorized users
     const payload = { id: user.id, role: user.role };
