@@ -7,7 +7,9 @@ export interface IUser {
 }
 
 export interface IUserModel {
-  findByEmail(email: string): Promise<IUser | null>
+  findByEmail(email: string): Promise<IUser | null>,
 }
 
 export type IToken = { token: string };
+
+export type IRole = { role: string };

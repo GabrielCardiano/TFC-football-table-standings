@@ -1,7 +1,5 @@
 import { Response, RequestHandler } from 'express';
-
-// const regexValidation = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-// regexValidation.test()
+import JWT from '../utils/generateJWT';
 
 class Validations {
   //  Authentication --> check user infromations (email/password)
@@ -10,7 +8,7 @@ class Validations {
     return regexValidation.test(email);
   }
 
-  static autheticateLogin: RequestHandler = (req, res, next): Response | void => {
+  static autheticateUser: RequestHandler = (req, res, next): Response | void => {
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({ message: 'All fields must be filled' });
@@ -19,6 +17,21 @@ class Validations {
     if (!Validations.validateEmail(email) || password.length < 6) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
+    next();
+  };
+
+  static validateToken: RequestHandler = (req, res, next) => {
+    const { authorization } = req.headers;
+    if (!authorization) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+
+    const token = authorization.split(' ')[1];
+    const validToken = JWT.verify(token);
+    if (!validToken) {
+      return res.status(401).json({ message: 'Token must be a valid token' });
+    }
+    res.locals.user = validToken;
 
     next();
   };

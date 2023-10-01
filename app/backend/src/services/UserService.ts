@@ -17,7 +17,7 @@ class UserService extends JWT {
     const user = await this._userModel.findByEmail(email);
     if (!user) return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
 
-    // Authetication --> check password with bcrypt
+    // Authetication --> check password with  bcrypt
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };

@@ -8,8 +8,14 @@ const router = Router();
 
 router.post(
   '/',
-  Validations.autheticateLogin,
+  Validations.autheticateUser,
   (req: Request, res: Response) => userController.login(req, res),
+);
+
+router.get(
+  '/role',
+  Validations.validateToken,
+  (req: Request, res: Response) => UserController.getUserRole(req, res), // criar GetRole
 );
 
 export default router;
