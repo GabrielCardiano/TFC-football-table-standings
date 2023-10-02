@@ -4,17 +4,17 @@ import httpResponse from '../utils/httpResponse';
 
 class TeamsController {
   constructor(
-    private _teamsController = new TeamsService(),
+    private _teamsService = new TeamsService(),
   ) { }
 
   public async findAllTeams(_req: Request, res: Response) {
-    const { status, data } = await this._teamsController.findAllTeams();
+    const { status, data } = await this._teamsService.findAllTeams();
     res.status(httpResponse(status)).json(data);
   }
 
   public async findTeamById(req: Request, res: Response) {
     const id = Number(req.params.id);
-    const { status, data } = await this._teamsController.findTeamById(id);
+    const { status, data } = await this._teamsService.findTeamById(id);
     res.status(httpResponse(status)).json(data);
   }
 }
