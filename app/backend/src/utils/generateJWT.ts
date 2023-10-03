@@ -5,7 +5,7 @@ class JWT {
   private static jwtConfig: SignOptions;
 
   constructor() {
-    if (!process.env.JWT_SECRET) throw new Error('JWT secret is missing');
+    // if (!process.env.JWT_SECRET) throw new Error('JWT secret is missing');
     JWT.secret = process.env.JWT_SECRET || 'jwt_secret';
     JWT.jwtConfig = { algorithm: 'HS256', expiresIn: '10d' };
   }

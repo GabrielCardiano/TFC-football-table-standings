@@ -30,8 +30,13 @@ describe('Teste função httpResponse', () => {
     expect(response).to.be.equal(409);
   });
 
-  it('Recebe nenhum parâmetro e retorna status - 500', async function () {
+  it('Recebe "UNAUTHORIZED" e retorna status - 401', async function () {
     const response = httpResponse('');
     expect(response).to.be.equal(500);
+  }); 
+
+  it('Recebe nenhum parâmetro e retorna status - 500', async function () {
+    const response = httpResponse('UNAUTHORIZED');
+    expect(response).to.be.equal(401);
   });  
 });

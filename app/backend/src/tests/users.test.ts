@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import { user, userDB, userRole } from './mocks/Users.mock';
+import { authUser, user, userDB } from './mocks/Users.mock';
 import UserModel from '../database/models/UserModel';
 import * as jwt from 'jsonwebtoken'
 import * as bcrypt from 'bcryptjs'
@@ -75,7 +75,7 @@ describe('Teste endpoint LOGIN', function () {
   // <------ JWT secret is missing sei lá porque? ------->
 
   it('Retorna a role do usuário - status 200', async function () {
-    sinon.stub(JWT, 'verify').returns(userRole); //retorno deo verify
+    sinon.stub(JWT, 'verify').returns(authUser); //retorno deo verify
     const { status, body } = await chai.request(app).get('/login/role').set('Authorization', 'token');
     expect(status).to.equal(200);
     expect(body).to.deep.equal({ role: 'user' }); // mockar retorno

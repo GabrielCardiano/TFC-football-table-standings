@@ -7,6 +7,8 @@ import { app } from '../app';
 import { allTeams, team } from './mocks/Teams.mock';
 import MatchesModel from '../database/models/MatchModel';
 import { allMatches } from './mocks/Matches.mock';
+import { authUser } from './mocks/Users.mock';
+import JWT from '../utils/generateJWT';
 
 chai.use(chaiHttp);
 
@@ -25,4 +27,14 @@ describe('Teste endpoint MATCHES', function () {
   //   expect(status).to.equal(200);
   //   expect(body).to.be.deep.equal(allMatches);
   // });
+
+  it('Updtade matches e retorna  uma mensagem de partida finalizada - status 200', async function () {
+    const dbData = 1;
+    const id = 1
+    sinon.stub(JWT, 'verify').returns(authUser);
+    sinon.stub(MatchesModel, 'update').resolves([dbData]);
+    const { status, body } = await chai.request(app).patch(`/matches/${id}/finish`).set('Authorization', 'token');
+    expect(status).to.equal(200);
+    expect(body).to.be.deep.equal({ message: 'Finished' });
+  })
 })
