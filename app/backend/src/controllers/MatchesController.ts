@@ -9,6 +9,7 @@ class MatchesController {
 
   public async findAllMatches(req: Request, res: Response) {
     const query = req.query.inProgress;
+
     if (query === 'true') {
       const { status, data } = await this._matchesService.findMatchesByQuery(true);
       return res.status(httpResponse(status)).json(data);
@@ -19,6 +20,12 @@ class MatchesController {
     }
 
     const { status, data } = await this._matchesService.findaAllMatches();
+    return res.status(httpResponse(status)).json(data);
+  }
+
+  public async updateMatch(req: Request, res: Response) {
+    const id = Number(req.params.id);
+    const { status, data } = await this._matchesService.updateMatch(id);
     return res.status(httpResponse(status)).json(data);
   }
 }

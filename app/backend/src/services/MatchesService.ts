@@ -1,5 +1,5 @@
 import MatchesModel from '../models/MatchesModel';
-import { IMatches, IMatchesModel } from '../Interfaces/IMatches';
+import { IMatches, IMatchesModel, updateMessage } from '../Interfaces/IMatches';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 
 class MatchesService {
@@ -17,6 +17,11 @@ class MatchesService {
   public async findMatchesByQuery(query: boolean): Promise<ServiceResponse<IMatches[]>> {
     const matches = await this._matchesModel.findByQuery(query);
     return { status: 'SUCCESSFUL', data: matches };
+  }
+
+  public async updateMatch(id: number): Promise<ServiceResponse<updateMessage>> {
+    const message = await this._matchesModel.updateMatch(id);
+    return { status: 'SUCCESSFUL', data: message };
   }
 }
 

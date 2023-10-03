@@ -24,7 +24,7 @@ describe('Teste endpoint LOGIN', function () {
     sinon.restore();
   });
 
-  //  <------ Tá dando TIME OUT sei lá pq ----->
+  //  <------ Tá dando TIME OUT sei lá pq -----> testar builda ou bulkbuild
 
   // it('Retorna um token quando Login é bem-sucedido - status 200', async function () {
   //   const loginBody = { email: "user@user.com", password: "secret_user" };
@@ -53,7 +53,7 @@ describe('Teste endpoint LOGIN', function () {
     expect(body).to.be.deep.equal({ message: 'All fields must be filled' });
   })
 
-  //  <------ Tá dando TIME OUT sei lá pq ----->
+  //  <------ Tá dando TIME OUT sei lá pq -----> testar builda ou bulkbuild
 
   // it('Login mal-sucedido quando password é inválido - status 400', async function () {
   //   const loginBody = { email: "user@user.com", password: "invalid_password" }; // with invalid password

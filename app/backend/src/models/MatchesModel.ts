@@ -1,6 +1,6 @@
 import TeamsModel from '../database/models/TeamsModel';
 import matchModel from '../database/models/MatchModel';
-import { IMatches, IMatchesModel } from '../Interfaces/IMatches';
+import { IMatches, IMatchesModel, updateMessage } from '../Interfaces/IMatches';
 
 class MatchesModel implements IMatchesModel {
   private model = matchModel;
@@ -27,6 +27,11 @@ class MatchesModel implements IMatchesModel {
 
     const matches = matchesDbArray.map((match) => match.toJSON());
     return matches;
+  }
+
+  public async updateMatch(id: number): Promise<updateMessage> {
+    await this.model.update({ inProgress: false }, { where: { id } });
+    return { message: 'Finished' };
   }
 }
 
