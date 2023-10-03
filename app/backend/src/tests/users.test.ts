@@ -68,16 +68,16 @@ describe('Teste endpoint LOGIN', function () {
     const loginBody = { email: 'zico@fla.com', password: 'ZicoRei' }; // non registered user
     sinon.stub(UserModel, 'findOne').resolves(null);
     const { status, body } = await chai.request(app).post('/login').send(loginBody);
-    expect(status).to.equal(404);
-    expect(body).to.deep.equal({ message: 'User not found' });
+    expect(status).to.equal(401);
+    expect(body).to.deep.equal({ message: 'Invalid email or password' });
   })
 
   // <------ JWT secret is missing sei lá porque? ------->
 
-  // it('Retorna a role do usuário - status 200', async function () {
-  //   sinon.stub(JWT, 'verify').returns(userRole);
-  //   const { status, body } = await chai.request(app).get('/login/role').set('Authorization', 'token');
-  //   expect(status).to.equal(200);
-  //   expect(body).to.deep.equal({ role: 'role' }); // mockar retorno
-  // })
+  it('Retorna a role do usuário - status 200', async function () {
+    sinon.stub(JWT, 'verify').returns(userRole); //retorno deo verify
+    const { status, body } = await chai.request(app).get('/login/role').set('Authorization', 'token');
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal({ role: 'user' }); // mockar retorno
+  })
 })
