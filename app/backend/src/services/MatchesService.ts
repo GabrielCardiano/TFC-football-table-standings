@@ -19,8 +19,8 @@ class MatchesService {
     return { status: 'SUCCESSFUL', data: matches };
   }
 
-  public async updateMatch(id: number): Promise<ServiceResponse<updateMessage>> {
-    const message = await this._matchesModel.updateMatch(id);
+  public async updateFinishMatch(id: number): Promise<ServiceResponse<updateMessage>> {
+    const message = await this._matchesModel.finishMatch(id);
     return { status: 'SUCCESSFUL', data: message };
   }
 }

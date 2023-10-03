@@ -29,7 +29,7 @@ class MatchesModel implements IMatchesModel {
     return matches;
   }
 
-  public async updateMatch(id: number): Promise<updateMessage> {
+  public async finishMatch(id: number): Promise<updateMessage> {
     await this.model.update({ inProgress: false }, { where: { id } });
     return { message: 'Finished' };
   }

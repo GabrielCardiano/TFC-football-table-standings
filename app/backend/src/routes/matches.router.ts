@@ -8,12 +8,11 @@ const router = Router();
 
 router.get('/', (req: Request, res: Response) => matchesController.findAllMatches(req, res));
 
-// router.use(Validations.validateToken);
+router.use(Validations.validateToken);
 
 router.patch(
   '/:id/finish',
-  Validations.validateToken,
-  (req: Request, res: Response) => matchesController.updateMatch(req, res),
+  (req: Request, res: Response) => matchesController.updateFinishMatch(req, res),
 );
 
 export default router;

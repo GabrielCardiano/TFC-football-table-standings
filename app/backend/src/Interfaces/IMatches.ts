@@ -12,5 +12,5 @@ export type updateMessage = { message: 'Finished' };
 export interface IMatchesModel {
   findAll(): Promise<IMatches[]>,
   findByQuery(query: boolean): Promise<IMatches[]>,
-  updateMatch(id: number): Promise<updateMessage>
+  finishMatch(id: number): Promise<updateMessage>
 }

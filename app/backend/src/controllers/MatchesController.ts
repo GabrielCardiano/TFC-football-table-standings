@@ -23,9 +23,9 @@ class MatchesController {
     return res.status(httpResponse(status)).json(data);
   }
 
-  public async updateMatch(req: Request, res: Response) {
+  public async updateFinishMatch(req: Request, res: Response) {
     const id = Number(req.params.id);
-    const { status, data } = await this._matchesService.updateMatch(id);
+    const { status, data } = await this._matchesService.updateFinishMatch(id);
     return res.status(httpResponse(status)).json(data);
   }
 }
