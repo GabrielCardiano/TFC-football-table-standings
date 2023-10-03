@@ -13,6 +13,11 @@ class MatchesService {
     const allMatches = await this._matchesModel.findAll();
     return { status: 'SUCCESSFUL', data: allMatches };
   }
+
+  public async findMatchesByQuery(query: boolean): Promise<ServiceResponse<IMatches[]>> {
+    const matches = await this._matchesModel.findByQuery(query);
+    return { status: 'SUCCESSFUL', data: matches };
+  }
 }
 
 export default MatchesService;

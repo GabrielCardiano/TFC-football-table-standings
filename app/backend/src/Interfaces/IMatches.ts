@@ -8,5 +8,6 @@ export interface IMatches {
 }
 
 export interface IMatchesModel {
-  findAll(): Promise<IMatches[]>
+  findAll(): Promise<IMatches[]>,
+  findByQuery(query: boolean): Promise<IMatches[]>,
 }

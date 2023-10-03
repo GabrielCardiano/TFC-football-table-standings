@@ -8,6 +8,16 @@ class MatchesController {
   ) { }
 
   public async findAllMatches(req: Request, res: Response) {
+    const query = req.query.inProgress;
+    if (query === 'true') {
+      const { status, data } = await this._matchesService.findMatchesByQuery(true);
+      return res.status(httpResponse(status)).json(data);
+    }
+    if (query === 'false') {
+      const { status, data } = await this._matchesService.findMatchesByQuery(false);
+      return res.status(httpResponse(status)).json(data);
+    }
+
     const { status, data } = await this._matchesService.findaAllMatches();
     return res.status(httpResponse(status)).json(data);
   }
