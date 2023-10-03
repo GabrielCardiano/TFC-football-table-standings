@@ -3,6 +3,10 @@ export interface IMatches {
   homeTeamId: number,
   homeTeamGoals: number,
   awayTeamId: number,
-  awayTeamGols: number,
+  awayTeamGoals: number,
   inProgress: boolean,
+}
+
+export interface IMatchesModel {
+  findAll(): Promise<IMatches[]>
 }

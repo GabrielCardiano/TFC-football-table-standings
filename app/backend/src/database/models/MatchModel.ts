@@ -14,7 +14,7 @@ class MatchModel extends Model
   declare homeTeamId: number;
   declare homeTeamGoals: number;
   declare awayTeamId: number;
-  declare awayTeamGols: number;
+  declare awayTeamGoals: number;
   declare inProgress: boolean;
 }
 
@@ -50,7 +50,7 @@ MatchModel.init({
     references: { model: 'teams', key: 'id' },
   },
 
-  awayTeamGols: {
+  awayTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'away_team_goals',

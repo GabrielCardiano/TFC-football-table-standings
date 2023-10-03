@@ -34,7 +34,7 @@ export default {
         references: { model: 'teams', key: 'id' },
       },
 
-      awayTeamGols: {
+      awayTeamGoals: {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'away_team_goals',
