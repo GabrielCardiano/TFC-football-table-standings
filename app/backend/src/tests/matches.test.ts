@@ -6,9 +6,10 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import { allTeams, team } from './mocks/Teams.mock';
 import MatchesModel from '../database/models/MatchModel';
-import { allMatches } from './mocks/Matches.mock';
+import { addMatch, allMatches } from './mocks/Matches.mock';
 import { authUser } from './mocks/Users.mock';
 import JWT from '../utils/generateJWT';
+import { verify } from 'crypto';
 
 chai.use(chaiHttp);
 
@@ -46,5 +47,14 @@ describe('Teste endpoint MATCHES', function () {
     const { status, body } = await chai.request(app).patch(`/matches/${id}`).set('Authorization', 'token');
     expect(status).to.equal(200);
     expect(body).to.be.deep.equal({ message: 'Score updated' });
+  })
+
+  it('Cadastra nova partida em andamento e retorna os dados da partida - status 201', async function() {
+    const dbBuild = MatchesModel.build(addMatch)
+    sinon.stub(JWT, 'verify').resolves(authUser);
+    sinon.stub(MatchesModel, 'create').resolves(dbBuild);
+    const { status, body } = await chai.request(app).post('/matches').set('Authorization', 'token');
+    expect(status).to.equal(201);
+    expect(body).to.be.deep.equal(addMatch);
   })
 })
