@@ -16,9 +16,12 @@ export interface updateScore {
   awayTeamGoals: number,
 }
 
+export type AddMatch = Omit<IMatches, 'id'>;
+
 export interface IMatchesModel {
   findAll(): Promise<IMatches[]>,
   findByQuery(query: boolean): Promise<IMatches[]>,
   finishMatch(id: number): Promise<updateFinishMessage>,
   updateMatchScore(id: number, body: updateScore): Promise<updateScoreMessage>,
+  createMatch(body: AddMatch): Promise<IMatches>,
 }

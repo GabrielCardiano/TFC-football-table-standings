@@ -1,6 +1,7 @@
 import TeamsModel from '../database/models/TeamsModel';
 import matchModel from '../database/models/MatchModel';
 import {
+  AddMatch,
   IMatches,
   IMatchesModel,
   updateFinishMessage,
@@ -44,6 +45,11 @@ class MatchesModel implements IMatchesModel {
     const { homeTeamGoals, awayTeamGoals } = body;
     await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
     return { message: 'Score updated' };
+  }
+
+  public async createMatch(body: AddMatch): Promise<IMatches> {
+    const newMatch = await this.model.create(body);
+    return newMatch.toJSON();
   }
 }
 

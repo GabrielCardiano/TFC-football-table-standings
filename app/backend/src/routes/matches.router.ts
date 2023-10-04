@@ -22,4 +22,6 @@ router.patch(
   (req: Request, res: Response) => matchesController.updateMatchScore(req, res),
 );
 
+router.post('/', Validations.validateToken, (req, res) => matchesController.createMatch(req, res));
+
 export default router;

@@ -5,6 +5,7 @@ import {
   updateFinishMessage,
   updateScoreMessage,
   updateScore,
+  AddMatch,
 } from '../Interfaces/IMatches';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 
@@ -35,6 +36,11 @@ class MatchesService {
     const message = await this._matchesModel.updateMatchScore(id, body);
 
     return { status: 'SUCCESSFUL', data: message };
+  }
+
+  public async createMatch(body: AddMatch): Promise<ServiceResponse<IMatches>> {
+    const newMatch = await this._matchesModel.createMatch(body);
+    return { status: 'CREATED', data: newMatch };
   }
 }
 
