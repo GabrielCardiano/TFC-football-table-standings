@@ -29,7 +29,30 @@ const allMatches = [
   }
 ]
 
-const addMatch = {
+const bodyRequest = {
+  "homeTeamId": 16,
+  "homeTeamGoals": 2,
+  "awayTeamId": 8,
+  "awayTeamGoals": 2,
+}
+
+const bodyRequestSameIds = {
+  "homeTeamId": 16,
+  "homeTeamGoals": 2,
+  "awayTeamId": 16,
+  "awayTeamGoals": 2,
+  "inProgress": true
+}
+
+const bodyRequestIdNUll = {
+  "homeTeamId": 999,
+  "homeTeamGoals": 2,
+  "awayTeamId": 666,
+  "awayTeamGoals": 2,
+  "inProgress": true
+}
+
+const createMatch = {
   "id": 1,
   "homeTeamId": 16,
   "homeTeamGoals": 2,
@@ -38,7 +61,12 @@ const addMatch = {
   "inProgress": true
 }
 
+ 
+
 export {
   allMatches,
-  addMatch,
+  createMatch,
+  bodyRequest,
+  bodyRequestSameIds,
+  bodyRequestIdNUll,
 }
