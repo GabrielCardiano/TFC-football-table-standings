@@ -8,12 +8,16 @@ import {
   AddMatch,
 } from '../Interfaces/IMatches';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
+import { ITeamsModel } from '../Interfaces/ITeams';
+import TeamsModel from '../models/TeamsModel';
 
 class MatchesService {
   private _matchesModel: IMatchesModel;
+  private _teamsModel: ITeamsModel;
 
   constructor() {
     this._matchesModel = new MatchesModel();
+    this._teamsModel = new TeamsModel();
   }
 
   public async findaAllMatches(): Promise<ServiceResponse<IMatches[]>> {
@@ -39,6 +43,21 @@ class MatchesService {
   }
 
   public async createMatch(body: AddMatch): Promise<ServiceResponse<IMatches>> {
+    // verifica que são times diferente
+    const { homeTeamId, awayTeamId } = body;
+    if (homeTeamId === awayTeamId) {
+      return {
+        status: 'UNPROCESSABLE_ENTITY',
+        data: { message: 'It is not possible to create a match with two equal teams' },
+      };
+    }
+    // verifica se os times estão cadastrados no banco de dados
+    const existHomeTeam = await this._teamsModel.findById(homeTeamId);
+    const existAwayTeam = await this._teamsModel.findById(awayTeamId);
+    if (!existHomeTeam || !existAwayTeam) {
+      return { status: 'NOT_FOUND', data: { message: 'There is no team with such id!' } };
+    }
+
     const newMatch = await this._matchesModel.createMatch(body);
     return { status: 'CREATED', data: newMatch };
   }
