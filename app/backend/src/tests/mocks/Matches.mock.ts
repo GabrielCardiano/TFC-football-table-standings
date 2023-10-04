@@ -6,12 +6,6 @@ const allMatches = [
     "awayTeamId": 8,
     "awayTeamGoals": 1,
     "inProgress": false,
-    "homeTeam": {
-      "teamName": "São Paulo"
-    },
-    "awayTeam": {
-      "teamName": "Grêmio"
-    }
   },
   {
     "id": 41,
@@ -20,12 +14,6 @@ const allMatches = [
     "awayTeamId": 9,
     "awayTeamGoals": 0,
     "inProgress": true,
-    "homeTeam": {
-      "teamName": "São Paulo"
-    },
-    "awayTeam": {
-      "teamName": "Internacional"
-    }
   }
 ]
 
@@ -61,7 +49,7 @@ const createMatch = {
   "inProgress": true
 }
 
- 
+
 
 export {
   allMatches,

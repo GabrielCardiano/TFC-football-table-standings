@@ -26,16 +26,16 @@ describe('Teste endpoint LOGIN', function () {
 
   //  <------ Tá dando TIME OUT sei lá pq -----> testar builda ou bulkbuild
 
-  // it('Retorna um token quando Login é bem-sucedido - status 200', async function () {
-  //   const loginBody = { email: "user@user.com", password: "secret_user" };
-  //   const dataDB = UserModel.build(userDB);
-  //   sinon.stub(UserModel, 'findOne').resolves(dataDB as any);
-  //   sinon.stub(JWT, 'sign').returns('token');
-  //   // sinon.stub(Validations, 'autheticateUser').returns();
-  //   const { status, body } = await chai.request(app).post('/login').send(loginBody);
-  //   expect(status).to.equal(200);
-  //   expect(body).to.have.key('token');
-  // })
+  it('Retorna um token quando Login é bem-sucedido - status 200', async function () {
+    const loginBody = { email: "user@user.com", password: "secret_user" };
+    const dataDB = UserModel.build(userDB);
+    sinon.stub(UserModel, 'findOne').resolves(dataDB);
+    sinon.stub(JWT, 'sign').returns('token');
+    sinon.stub(Validations, 'autheticateUser').returns();
+    const { status, body } = await chai.request(app).post('/login').send(loginBody);
+    expect(status).to.equal(200);
+    expect(body).to.have.key('token');
+  })
 
   it('Login mal-sucedido quando email é inexistente - status 400', async function () {
     const loginBody = { password: "secret_user" }; // without email
@@ -55,14 +55,14 @@ describe('Teste endpoint LOGIN', function () {
 
   //  <------ Tá dando TIME OUT sei lá pq -----> testar builda ou bulkbuild
 
-  // it('Login mal-sucedido quando password é inválido - status 400', async function () {
-  //   const loginBody = { email: "user@user.com", password: "invalid_password" }; // with invalid password
-  //   sinon.stub(UserModel, 'findOne').resolves(user as any);
-  //   sinon.stub(bcrypt, 'compare').resolves(false)
-  //   const { status, body } = await chai.request(app).post('/login').send(loginBody);
-  //   expect(status).to.equal(500);
-  //   expect(body).to.be.deep.equal({ message: 'Invalid password'  });
-  // })
+  it('Login mal-sucedido quando password é inválido - status 400', async function () {
+    const loginBody = { email: "user@user.com", password: "invalid_password" }; // with invalid password
+    sinon.stub(UserModel, 'findOne').resolves(null);
+    sinon.stub(bcrypt, 'compare').resolves(false)
+    const { status, body } = await chai.request(app).post('/login').send(loginBody);
+    expect(status).to.equal(401);
+    expect(body).to.be.deep.equal({ message: 'Invalid email or password' });
+  })
 
   it('Não encontra usuário cadastrado no banco de dados - status 404', async function () {
     const loginBody = { email: 'zico@fla.com', password: 'ZicoRei' }; // non registered user

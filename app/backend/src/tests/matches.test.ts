@@ -22,13 +22,14 @@ describe('Teste endpoint MATCHES', function () {
     sinon.restore();
   })
   // <-------- Timeout ----------> testar builda ou bulkbuild
-  // it('Retorna todos as partidas - status 200', async function () {
-  //   sinon.stub(MatchesModel, 'findAll').resolves(allMatches as any);
-  //   const { status, body } = await chai.request(app).get('/matches');
+  it('Retorna todos as partidas - status 200', async function () {
+    const dbBuild = MatchesModel.bulkBuild(allMatches);
+    sinon.stub(MatchesModel, 'findAll').resolves(dbBuild);
+    const { status, body } = await chai.request(app).get('/matches');
 
-  //   expect(status).to.equal(200);
-  //   expect(body).to.be.deep.equal(allMatches);
-  // });
+    expect(status).to.equal(200);
+    expect(body).to.be.deep.equal(allMatches);
+  });
 
   it('Updtade matches e retorna  uma mensagem de partida finalizada - status 200', async function () {
     const dbData = 1;
