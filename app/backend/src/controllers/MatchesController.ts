@@ -28,6 +28,13 @@ class MatchesController {
     const { status, data } = await this._matchesService.updateFinishMatch(id);
     return res.status(httpResponse(status)).json(data);
   }
+
+  public async updateMatchScore(req: Request, res: Response) {
+    const id = Number(req.params.id);
+    const { body } = req;
+    const { status, data } = await this._matchesService.updateMatchScore(id, body);
+    return res.status(httpResponse(status)).json(data);
+  }
 }
 
 export default MatchesController;

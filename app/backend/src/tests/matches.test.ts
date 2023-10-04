@@ -19,7 +19,7 @@ describe('Teste endpoint MATCHES', function () {
   beforeEach(function () {
     sinon.restore();
   })
-  // <-------- Timeout ---------->
+  // <-------- Timeout ----------> testar builda ou bulkbuild
   // it('Retorna todos as partidas - status 200', async function () {
   //   sinon.stub(MatchesModel, 'findAll').resolves(allMatches as any);
   //   const { status, body } = await chai.request(app).get('/matches');
@@ -36,5 +36,15 @@ describe('Teste endpoint MATCHES', function () {
     const { status, body } = await chai.request(app).patch(`/matches/${id}/finish`).set('Authorization', 'token');
     expect(status).to.equal(200);
     expect(body).to.be.deep.equal({ message: 'Finished' });
+  });
+
+  it('Updtade matches e retorna  uma mensagem de partida placar atualizado - status 200', async function () {
+    const dbData = 1;
+    const id = 1
+    sinon.stub(JWT, 'verify').returns(authUser);
+    sinon.stub(MatchesModel, 'update').resolves([dbData]);
+    const { status, body } = await chai.request(app).patch(`/matches/${id}`).set('Authorization', 'token');
+    expect(status).to.equal(200);
+    expect(body).to.be.deep.equal({ message: 'Score updated' });
   })
 })

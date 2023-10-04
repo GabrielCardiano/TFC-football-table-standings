@@ -7,10 +7,18 @@ export interface IMatches {
   inProgress: boolean,
 }
 
-export type updateMessage = { message: 'Finished' };
+export type updateFinishMessage = { message: 'Finished' };
+
+export type updateScoreMessage = { message: 'Score updated' };
+
+export interface updateScore {
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+}
 
 export interface IMatchesModel {
   findAll(): Promise<IMatches[]>,
   findByQuery(query: boolean): Promise<IMatches[]>,
-  finishMatch(id: number): Promise<updateMessage>
+  finishMatch(id: number): Promise<updateFinishMessage>,
+  updateMatchScore(id: number, body: updateScore): Promise<updateScoreMessage>,
 }

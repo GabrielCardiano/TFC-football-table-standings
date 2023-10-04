@@ -1,6 +1,12 @@
 import TeamsModel from '../database/models/TeamsModel';
 import matchModel from '../database/models/MatchModel';
-import { IMatches, IMatchesModel, updateMessage } from '../Interfaces/IMatches';
+import {
+  IMatches,
+  IMatchesModel,
+  updateFinishMessage,
+  updateScore,
+  updateScoreMessage,
+} from '../Interfaces/IMatches';
 
 class MatchesModel implements IMatchesModel {
   private model = matchModel;
@@ -29,9 +35,15 @@ class MatchesModel implements IMatchesModel {
     return matches;
   }
 
-  public async finishMatch(id: number): Promise<updateMessage> {
+  public async finishMatch(id: number): Promise<updateFinishMessage> {
     await this.model.update({ inProgress: false }, { where: { id } });
     return { message: 'Finished' };
+  }
+
+  public async updateMatchScore(id: number, body: updateScore): Promise<updateScoreMessage> {
+    const { homeTeamGoals, awayTeamGoals } = body;
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return { message: 'Score updated' };
   }
 }
 
