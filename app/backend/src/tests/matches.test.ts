@@ -6,7 +6,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import { allTeams, team } from './mocks/Teams.mock';
 import MatchesModel from '../database/models/MatchModel';
-import { createMatch, allMatches, bodyRequest, bodyRequestSameIds, bodyRequestIdNUll } from './mocks/Matches.mock';
+import { createMatch, allMatches, bodyRequest, bodyRequestSameIds, bodyRequestIdNUll, matchTrue, matchFalse } from './mocks/Matches.mock';
 import { authUser } from './mocks/Users.mock';
 import JWT from '../utils/generateJWT';
 import { verify } from 'crypto';
@@ -29,6 +29,20 @@ describe('Teste endpoint MATCHES', function () {
 
     expect(status).to.equal(200);
     expect(body).to.be.deep.equal(allMatches);
+  });
+
+  it('Retorna uma partida quando é feita uma busca por query-TRUE - status 200', async function () {
+    sinon.stub(MatchesModel, 'findByPk').resolves(matchTrue as any);
+    const { status, body } = await chai.request(app).get('/matches?inProgress=true');
+    expect(status).to.equal(200);
+    expect(body).to.be.deep.equal(matchTrue);
+  });
+
+  it('Retorna uma partida quando é feita uma busca por query-FALSE - status 200', async function () {
+    sinon.stub(MatchesModel, 'findByPk').resolves(matchFalse as any);
+    const { status, body } = await chai.request(app).get('/matches?inProgress=false');
+    expect(status).to.equal(200);
+    expect(body).to.be.deep.equal(matchFalse);
   });
 
   it('Updtade matches e retorna  uma mensagem de partida finalizada - status 200', async function () {
