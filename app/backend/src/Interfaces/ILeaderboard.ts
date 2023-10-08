@@ -11,9 +11,4 @@ export interface ILeaderboard {
   efficiency: number,
 }
 
-// export interface ILeaderboardModel {
-//   getTeamsStandings(): Promise<ILeaderboard[]>,
-//   calculateTotalPoints(victories: number, draws: number): number,
-//   calculateGoalDifference(goalFor: number, goalsAgainst: number): number,
-//   calculateOverAllEfficency(): number,
-// }
+export type IPath = 'home' | 'away';

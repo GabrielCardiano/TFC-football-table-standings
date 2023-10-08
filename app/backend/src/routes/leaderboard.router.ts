@@ -7,7 +7,12 @@ const router = Router();
 
 router.get(
   '/home',
-  (req: Request, res: Response) => leaderboardController.getHomeTeamsLeaderboard(req, res),
+  (req: Request, res: Response) => leaderboardController.getTeamsLeaderboard(req, res),
+);
+
+router.get(
+  '/away',
+  (req: Request, res: Response) => leaderboardController.getTeamsLeaderboard(req, res),
 );
 
 export default router;
