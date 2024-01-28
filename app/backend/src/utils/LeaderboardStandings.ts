@@ -32,7 +32,7 @@ class LeaderboardStandings {
     matches: IMatches[],
     path: IPath,
   ) {
-    this.name = team.teamName;
+    this.name = this.setName(team);
     this.totalGames = this.calculateTotalGames(team, matches);
     this.totalVictories = this.calculateAllTeamsVictory(team, matches, path);
     this.totalDraws = this.calculateAllTeamsDraws(team, matches, path);
